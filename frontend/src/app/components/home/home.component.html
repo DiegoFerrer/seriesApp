@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="toolbar">
+    <mat-form-field class="example-full-width">
+        <input matInput #filtro [(ngModel)]="textoFiltro" placeholder="Buscar serie">
+        <span>{{textoFiltro}}</span>
+      </mat-form-field>   
+</mat-toolbar>
+
+<section class="container-series" #cardSerieContainer>
+    <app-serie [ngClass]="{'card-serie-full': activado == 1}"  *ngFor="let serie of seriesFiltradas" [serie]="serie" class="card-serie" (eliminar)="borrarSerie($event)" (actualizar)="editarSerie($event)"></app-serie>
+</section>
+
+<div class="example-button-container" class="button-add-container">
+    <button mat-fab color="primary" class="button-add">
+        <mat-icon class="button-add-icon" (click)="openDialogAdd()">add</mat-icon>
+    </button>
+</div>

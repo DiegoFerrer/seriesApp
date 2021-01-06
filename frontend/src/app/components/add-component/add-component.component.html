@@ -1,0 +1,28 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre Serie</mat-label>
+      <input matInput type="text" [(ngModel)]="serie.nombre" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  
+    <mat-form-field class="example-full-width">
+      <mat-label>Puntuacion</mat-label>
+         <input matInput [(ngModel)]="serie.valoracion" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    
+    <mat-form-field class="example-full-width">
+        <mat-label>¿Cuantas temporadas tiene?</mat-label>
+           <input matInput [(ngModel)]="serie.temporadas" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>URL de la imagen</mat-label>
+           <input matInput [(ngModel)]="serie.urlImg" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+      
+
+      <div class="example-button-row actions-buttons">
+        <button mat-raised-button color="primary" (click)="agregar()">Agregar</button>
+        <button mat-raised-button color="warn">Cancelar</button>
+      </div>
+  </form>

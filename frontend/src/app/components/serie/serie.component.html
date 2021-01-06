@@ -1,0 +1,21 @@
+<mat-card class="card-container">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{serie.nombre}}</mat-card-title>
+      <mat-card-subtitle>Puntuacion: {{serie.valoracion}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="img-container">
+      <img mat-card-image [src]="serie.urlImg" class="img-serie">
+    </div>
+    <mat-card-content>
+      <H2>Temporadas: {{serie.temporadas}}</H2>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+    <button mat-fab color="primary" class="actions-icon" >
+        <mat-icon class="button-add-icon" (click)="openDialogEdit(serie)">edit</mat-icon>
+    </button>
+    <button mat-fab color="warn" class="actions-icon">
+      <mat-icon class="button-add-icon" (click)="enviarId(serie.id)">delete</mat-icon>
+  </button>
+    </mat-card-actions>
+</mat-card>
