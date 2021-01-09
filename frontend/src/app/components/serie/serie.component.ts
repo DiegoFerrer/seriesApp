@@ -12,8 +12,10 @@ import { EditSeriesComponent } from '../edit-series/edit-series.component';
 
 export class SerieComponent implements OnInit {
 
+  //* Llega un objeto serie para renderizar
   @Input() serie:Serie;
 
+  //* Envio al componente contenedor de todas las tarjetas lo que debe actualizar o eliminar
   @Output() eliminar = new EventEmitter;
   @Output() actualizar = new EventEmitter;
 
@@ -37,8 +39,7 @@ export class SerieComponent implements OnInit {
       data: serie
     })
     dialogRef.afterClosed().subscribe(
-      // res => console.log(res),
-      res => this.enviarSerieActualizada(res),
+      res => res ? this.enviarSerieActualizada(res) : false,
       err => console.log(err)
     )
   }

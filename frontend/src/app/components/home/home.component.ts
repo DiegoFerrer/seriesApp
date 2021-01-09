@@ -1,10 +1,7 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
-  OnChanges,
   OnInit,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { SeriesService } from 'src/app/services/series.service';
@@ -40,15 +37,14 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private seriesService: SeriesService,
-    private dialog: MatDialog,
-    private renderer: Renderer2
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.obtenerSeries();
   }
 
-  //* Filtro
+  //* Filtrar series
   filtrar(texto: string) {
     return this.series.filter((serie: Serie) =>
       serie.nombre.toLowerCase().startsWith(texto.toLowerCase())
@@ -102,8 +98,7 @@ export class HomeComponent implements OnInit {
       // data: curso
     });
     dialogRef.afterClosed().subscribe(
-      // res => console.log(res),
-      (res) => this.agregarSerie(res),
+      (res) => res ? this.agregarSerie(res) : false,
       (err) => console.log(err)
     );
   }

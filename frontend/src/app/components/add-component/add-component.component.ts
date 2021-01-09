@@ -11,29 +11,23 @@ import { Serie } from 'src/app/models/serie';
 })
 
 export class AddComponentComponent implements OnInit {
-  serie:Serie = {
-    nombre: '',
-    temporadas: '',
-    urlImg: '',
-    valoracion: '',
-  };
+   serie:Serie = {
+     nombre: '',
+     temporadas: '',
+     urlImg: '',
+     valoracion: '',
+   };
 
-  @Input() serieModificada:Serie;
-
-  constructor(
-    public dialogRef: MatDialogRef<AddComponentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data:any
-  ) { }
+  constructor( public dialogRef: MatDialogRef<AddComponentComponent>) { }
 
   ngOnInit(): void {
   }
 
   agregar(){
-    // console.log(this.serie)
     this.dialogRef.close(this.serie)
   }
   cancel(){
-    this.dialogRef.close()
+    this.dialogRef.close(false)
   }
 
 }

@@ -11,21 +11,16 @@ import { Serie } from 'src/app/models/serie';
 })
 export class EditSeriesComponent implements OnInit {
 
-  constructor(
-    public dialogRef: MatDialogRef<EditSeriesComponent>,
-    @Inject(MAT_DIALOG_DATA) public serie:Serie
-  ) { }
+  constructor(public dialogRef: MatDialogRef<EditSeriesComponent>,@Inject(MAT_DIALOG_DATA) public serie:Serie) { }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   update(){
     // console.log(this.serie)
     this.dialogRef.close(this.serie)
   }
   cancel(){
-    this.dialogRef.close()
+    this.dialogRef.close(false)
   }
 
 }
