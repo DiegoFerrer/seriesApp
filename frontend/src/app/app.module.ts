@@ -1,28 +1,26 @@
+//? Modulos
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+
+//? Componentes
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SerieComponent } from './components/serie/serie.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SeriesService } from './services/series.service';
 import { AddComponentComponent } from './components/add-component/add-component.component';
-import { FormsModule } from '@angular/forms';
-import { EditSeriesComponent } from './components/edit-series/edit-series.component'
-
-
-
-
+import { EditSeriesComponent } from './components/edit-series/edit-series.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SerieComponent,
     AddComponentComponent,
-    EditSeriesComponent
+    EditSeriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,10 +28,10 @@ import { EditSeriesComponent } from './components/edit-series/edit-series.compon
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
-  entryComponents:[AddComponentComponent,EditSeriesComponent],
+  entryComponents: [AddComponentComponent, EditSeriesComponent],
   providers: [SeriesService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

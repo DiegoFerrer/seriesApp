@@ -1,20 +1,66 @@
 .card-container {
-    max-width: 400px;
-
-  }
+    max-width: 300px;
+    padding: 1em 0;
+    box-sizing: border-box;
+}
   
   .img-container{
-    max-height: 200px;
+    width: 100%;
     display: block;
-    min-width: 100%;
-    overflow: hidden;
-    display: block;
+    height: 170px;
+    position: relative;
   }
 
+  .img-serie:hover ~ .buttons-hide-section {
+    transform: scale(1);
+  }
+
+  .buttons-hide-section:hover {
+    transform: scale(1);
+  }
+
+  .editar, .borrar {
+    transition: transform .1s ease;
+  }
+
+  .editar:hover, .borrar:hover{
+    transform: scale(1.2);
+  }
+
+  .buttons-hide-section {
+    height: 55%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0.7em;
+    right: 0.7em;
+    transform: scale(0); 
+    transition: transform 0.2s ease;
+  }
+
+  .buttons-hide-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+
+}
+
+  .button-hide-icon{
+    height: auto;
+    width: auto;
+    font-size: 20px;
+}
+
   .img-serie {
+    max-height: 100%;
     max-width: 100%;
-    height: 100%;
-    margin: auto;
+    margin: 0;
+    display: block;
+    /* margin: auto; */
     object-fit: cover;
   }
 
@@ -26,3 +72,91 @@
   .actions-icon{
     margin: 0 0.5em;
   }
+
+  .mat-card-header-container {
+    width: 100%;
+  }
+  ::ng-deep .mat-card-header-text {
+    /* CSS styles go here */
+    margin: 0px;
+    display: none;
+  }
+
+  .serie-title {
+    text-align: center;
+    margin: 0;
+    margin-top: 0.5em !important;
+  }
+
+  .ml-1 {
+    margin-left: 1em;
+  }
+
+  .star-icon {
+    color:#FFCC33;
+  }
+
+  .valoracion {
+    display: flex;
+    align-items: center;
+  }
+
+  .serie-puntuacion {
+    margin-left:.5em;
+    margin-top: .2em;
+    font-weight: 500;
+    /* -- */
+    /* display: inline-block;
+    text-align: center;
+    border-radius: 10px;
+    width: 50px;
+    background-color: #DFDFDF; */
+  }
+
+  .play {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#2196f3;
+    transition: transform .2s ease;
+    margin-bottom: 1em;
+  }
+
+  .htext-icon {
+    text-decoration: none;
+  }
+
+  .play-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-size: 40px;
+  }
+
+  .actions-icon:hover {
+    transform: scale(1.2);
+  }
+
+  .temporadas{
+    font-weight: 500;
+    color: #2196f3 ;
+    margin-top: 1em;
+  }
+
+.temporadas-numero{
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 14px;
+  width: 40px;
+  background-color: #DFDFDF;
+  text-align: center;
+  font-weight: 500;
+  color: #000;
+}
+
+.serie-body {
+  background-color: #F4F4F4;
+}
+
+    

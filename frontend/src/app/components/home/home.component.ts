@@ -1,13 +1,10 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SeriesService } from 'src/app/services/series.service';
 import { Serie } from 'src/app/models/serie';
 import { MatDialog } from '@angular/material/dialog';
 import { AddComponentComponent } from '../add-component/add-component.component';
+import { SerieModificada } from 'src/app/models/serie-modificada';
+import { type } from 'os';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +12,6 @@ import { AddComponentComponent } from '../add-component/add-component.component'
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
-
   @ViewChild('filtro', { static: false })
   filtro: ElementRef;
   private _textoFiltro: string = '';
@@ -55,6 +50,19 @@ export class HomeComponent implements OnInit {
   obtenerSeries() {
     this.seriesService.getSeries().subscribe(
       (res) => {
+        // let variable = 8.5
+        // console.log(Math.trunc(variable))
+        // console.log(8.5 % 1)
+        res.map((serie) => {
+          let serieArray = [];
+          serie.valoracion = Number(serie.valoracion);
+          serie.float = Boolean(serie.valoracion % 1)
+          for (let i = 1; i < (Math.trunc(serie.valoracion) + 1); i++) {
+            serieArray.push(i)
+          }
+          serie.valoracionModificada = serieArray
+        });
+
         this.series = res;
         this.seriesFiltradas = res;
         setTimeout(() => {
@@ -98,7 +106,7 @@ export class HomeComponent implements OnInit {
       // data: curso
     });
     dialogRef.afterClosed().subscribe(
-      (res) => res ? this.agregarSerie(res) : false,
+      (res) => (res ? this.agregarSerie(res) : false),
       (err) => console.log(err)
     );
   }

@@ -6,10 +6,6 @@
 
 '''------------------------------------ I M P O R T S --------------------------------'''
 from flask import Flask 
-from flask import render_template   # para usar html 
-from flask import request           # Para enviar y recibir datos
-from flask import redirect          # Para redireccionar
-from flask import url_for           # crear una URL para redireccionar
 from flask import jsonify           # Objeto Json
 from flask import request           # manejar los request
 from flask_cors import CORS         # Importando CORS para python
@@ -44,7 +40,8 @@ def getData():
             "nombre": serie[1],
             "valoracion": serie[2],
             "temporadas": serie[3],
-            "urlImg": serie[4]
+            "urlImg": serie[4],
+            "urlSerie": serie[5]
         }
         dataSeries.append(Objetoserie)
     
@@ -58,9 +55,10 @@ def agregarSerie():
         valoracion = request.json['valoracion']
         temporadas = request.json['temporadas']
         urlImg = request.json['urlImg']
+        urlSerie = request.json['urlSerie']
     
         cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO series (nombre,valoracion,temporadas,urlImg) VALUES(%s, %s, %s,%s)', (nombre,valoracion,temporadas,urlImg))
+        cur.execute('INSERT INTO series (nombre,valoracion,temporadas,urlImg,urlSerie) VALUES(%s, %s, %s,%s,%s)', (nombre,valoracion,temporadas,urlImg,urlSerie))
         mysql.connection.commit() # ejecutar la consulta
         status_code = 201
         
@@ -74,8 +72,9 @@ def update_serie(id):
         valoracion = request.json['valoracion']
         temporadas = request.json['temporadas']
         urlImg = request.json['urlImg']
+        urlSerie = request.json['urlSerie']
         cur = mysql.connection.cursor()
-        cur.execute('UPDATE series SET nombre = %s, valoracion = %s, temporadas =%s, urlImg = %s WHERE id = %s',(nombre,valoracion,temporadas,urlImg,id))
+        cur.execute('UPDATE series SET nombre = %s, valoracion = %s, temporadas =%s, urlImg = %s, urlSerie =%s WHERE id = %s',(nombre,valoracion,temporadas,urlImg,urlSerie,id))
         mysql.connection.commit() # ejecutar la consulta
 
         status_code = 200

@@ -3,5 +3,8 @@ export interface Serie {
     nombre: string,
     temporadas: string,
     urlImg: string,
-    valoracion: string,
+    valoracion: number,
+    valoracionModificada?: number[];
+    float?: boolean;
+    urlSerie: string
 }

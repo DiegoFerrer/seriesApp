@@ -1,21 +1,32 @@
-<mat-card class="card-container">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{serie.nombre}}</mat-card-title>
-      <mat-card-subtitle>Puntuacion: {{serie.valoracion}}</mat-card-subtitle>
-    </mat-card-header>
-    <div class="img-container">
-      <img mat-card-image [src]="serie.urlImg" class="img-serie">
-    </div>
-    <mat-card-content>
-      <H2>Temporadas: {{serie.temporadas}}</H2>
-    </mat-card-content>
-    <mat-card-actions class="actions">
-    <button mat-fab color="primary" class="actions-icon" >
-        <mat-icon class="button-add-icon" (click)="openDialogEdit(serie)">edit</mat-icon>
+<mat-card class="card-container serie-body">
+  <div class="img-container">
+    <img mat-card-image [src]="serie.urlImg" class="img-serie" />
+    <img *ngIf="!serie.urlImg" mat-card-image src="../../../assets/default.jpg" class="img-serie" />
+    <section class="buttons-hide-section">
+      <button mat-fab color="primary" class="buttons-hide-container editar">
+        <mat-icon class="button-hide-icon " (click)="openDialogEdit(serie)"
+          >edit</mat-icon
+        >
+      </button>
+      <button mat-fab color="warn" class="buttons-hide-container borrar">
+        <mat-icon class="button-hide-icon " (click)="enviarId(serie.id)"
+          >delete</mat-icon
+        >
+      </button>
+    </section>
+  </div>
+  <mat-card-content class="serie-body">
+    <h1 class="serie-title">{{ serie.nombre }}</h1>
+    <section class="valoracion ml-1">
+      <mat-icon class="star-icon" *ngFor="let serie of serie.valoracionModificada">star</mat-icon>
+      <mat-icon class="star-icon" *ngIf="serie.float">star_half</mat-icon>
+      <span class="serie-puntuacion">({{ serie.valoracion }})</span>
+    </section>
+    <h3 class="temporadas ml-1">Temporadas: <span class="temporadas-numero">{{ serie.temporadas }}</span></h3>
+  </mat-card-content>
+  <mat-card-actions class="actions">
+    <button mat-fab class="actions-icon play">
+      <a href="https://google.com.ar" target="_blank" class="htext-icon"><mat-icon class="play-icon">play_circle</mat-icon></a>       
     </button>
-    <button mat-fab color="warn" class="actions-icon">
-      <mat-icon class="button-add-icon" (click)="enviarId(serie.id)">delete</mat-icon>
-  </button>
-    </mat-card-actions>
+  </mat-card-actions>
 </mat-card>

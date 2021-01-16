@@ -19,8 +19,12 @@
         <mat-label>URL de la imagen</mat-label>
            <input matInput [(ngModel)]="serie.urlImg" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
-      
 
+      <mat-form-field class="example-full-width">
+        <mat-label>URL de la Serie</mat-label>
+           <input matInput [(ngModel)]="serie.urlSerie" [ngModelOptions]="{standalone: true}">
+      </mat-form-field>
+      
       <div class="example-button-row actions-buttons">
         <button mat-raised-button color="primary" (click)="agregar()">Agregar</button>
         <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>

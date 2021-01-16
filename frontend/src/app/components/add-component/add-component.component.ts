@@ -11,13 +11,16 @@ import { Serie } from 'src/app/models/serie';
 })
 
 export class AddComponentComponent implements OnInit {
-   serie:Serie = {
-     nombre: '',
-     temporadas: '',
-     urlImg: '',
-     valoracion: '',
-   };
+    serie:Serie = {
+      nombre: '',
+      temporadas: '',
+      urlImg: '',
+      valoracion: 0,
+      urlSerie: ''
+    };
 
+
+  // en este caso no se injecta data al dialog, ya es crear uno nuevo
   constructor( public dialogRef: MatDialogRef<AddComponentComponent>) { }
 
   ngOnInit(): void {

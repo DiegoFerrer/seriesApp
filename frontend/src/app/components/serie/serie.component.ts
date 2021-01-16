@@ -35,7 +35,7 @@ export class SerieComponent implements OnInit {
    //* funcionalidad EDITAR serie
    openDialogEdit(serie:Serie){
      const dialogRef = this.dialog.open(EditSeriesComponent,{
-      width:'600px',
+      width:'800px',
       data: serie
     })
     dialogRef.afterClosed().subscribe(

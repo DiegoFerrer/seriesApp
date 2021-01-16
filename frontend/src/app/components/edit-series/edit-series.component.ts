@@ -16,7 +16,6 @@ export class EditSeriesComponent implements OnInit {
   ngOnInit(): void {}
 
   update(){
-    // console.log(this.serie)
     this.dialogRef.close(this.serie)
   }
   cancel(){
