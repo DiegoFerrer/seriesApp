@@ -4,14 +4,14 @@
 }
 
 .form-sesion{
-    width: 30%;
+    width: 25%;
     height: 23%;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 20em;
+    bottom: 30em;
     margin: auto;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.4);
     padding: 2em;
     box-sizing: border-box;
     position: absolute;
@@ -57,15 +57,15 @@
 
 }
 
-.video-container::after{
+/* .video-container::after{
     content:'';
     position:absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-}
+    background-color: rgba(0, 0, 0, 0.2);
+} */
 
 .video{
     min-height: 100%;

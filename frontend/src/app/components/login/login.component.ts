@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { SesionService } from 'src/app/services/sesion.service';
@@ -12,7 +12,8 @@ import { SesionService } from 'src/app/services/sesion.service';
 export class LoginComponent implements OnInit {
 
   @ViewChild('video', { static: true })
-  video: HTMLVideoElement
+  // video: HTMLVideoElement
+  video: ElementRef
 
   usuario:Usuario = {
       usuario: '',
@@ -27,10 +28,8 @@ export class LoginComponent implements OnInit {
     let idUsuario = localStorage.getItem('id')
     if (idUsuario) this.route.navigate(['/home'])
 
-  }
+    this.video.nativeElement.volume = 0
 
-  videos(){
-    this.video.play()
   }
 
   login(usuario) {
