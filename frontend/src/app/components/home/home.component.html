@@ -1,16 +1,57 @@
 <mat-toolbar color="primary" class="toolbar">
-    <mat-form-field class="example-full-width">
-        <input matInput #filtro [(ngModel)]="textoFiltro" placeholder="Buscar serie">
-        <span>{{textoFiltro}}</span>
-      </mat-form-field>   
+  <mat-form-field
+    appearance="standard"
+    class="buscador-container">
+    <input
+      matInput
+      placeholder="Buscar Serie"
+      #filtro
+      [(ngModel)]="textoFiltro"
+      class="buscador"
+    />
+    <mat-icon matSuffix class="icon-buscador">search</mat-icon>
+  </mat-form-field>
+
+  <section class="menu">
+    <section class="perfil-container">
+        <section
+          class="foto-container"
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+         <img *ngIf="!fotoUrl" src="../../../assets/userdefualt.png" class="foto-perfil" />
+         <img *ngIf="fotoUrl != ''" [src]="fotoUrl" class="foto-perfil">
+        </section>
+        <span class="usuario-title">{{ usuario }}</span>
+
+    </section>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openDialogEdit()">
+        <mat-icon>face</mat-icon>
+        <span>Editar perfil</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar Sesion</span>
+      </button>
+    </mat-menu>
+  </section>
 </mat-toolbar>
 
 <section class="container-series" #cardSerieContainer>
-    <app-serie [ngClass]="{'card-serie-full': activado == 1}"  *ngFor="let serie of seriesFiltradas" [serie]="serie" class="card-serie" (eliminar)="borrarSerie($event)" (actualizar)="editarSerie($event)"></app-serie>
+  <app-serie
+    [ngClass]="{ 'card-serie-full': activado == 1 }"
+    *ngFor="let serie of seriesFiltradas"
+    [serie]="serie"
+    class="card-serie"
+    (eliminar)="borrarSerie($event)"
+    (actualizar)="editarSerie($event)"
+  ></app-serie>
 </section>
 
 <div class="example-button-container" class="button-add-container">
-    <button mat-fab color="primary" class="button-add">
-        <mat-icon class="button-add-icon" (click)="openDialogAdd()">add</mat-icon>
-    </button>
+  <button mat-fab color="primary" class="button-add">
+    <mat-icon class="button-add-icon" (click)="openDialogAdd()">add</mat-icon>
+  </button>
 </div>

@@ -14,6 +14,11 @@ import { SerieComponent } from './components/serie/serie.component';
 import { SeriesService } from './services/series.service';
 import { AddComponentComponent } from './components/add-component/add-component.component';
 import { EditSeriesComponent } from './components/edit-series/edit-series.component';
+import { PreviewComponent } from './components/preview/preview.component';
+import { LoginComponent } from './components/login/login.component';
+import { SesionService } from './services/sesion.service';
+import { RegistroComponent } from './components/registro/registro.component';
+import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +26,10 @@ import { EditSeriesComponent } from './components/edit-series/edit-series.compon
     SerieComponent,
     AddComponentComponent,
     EditSeriesComponent,
+    PreviewComponent,
+    LoginComponent,
+    RegistroComponent,
+    EditarPerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +40,7 @@ import { EditSeriesComponent } from './components/edit-series/edit-series.compon
     FormsModule,
   ],
   entryComponents: [AddComponentComponent, EditSeriesComponent],
-  providers: [SeriesService],
+  providers: [SeriesService,SesionService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

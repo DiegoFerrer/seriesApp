@@ -32,14 +32,19 @@ export class SerieComponent implements OnInit {
     this.actualizar.emit(serie)
   }
 
+  getArregloValoracion(valoracion){
+    if(valoracion) return new Array(Math.trunc(parseInt(valoracion)))
+  }
+
    //* funcionalidad EDITAR serie
    openDialogEdit(serie:Serie){
+
      const dialogRef = this.dialog.open(EditSeriesComponent,{
       width:'800px',
       data: serie
     })
     dialogRef.afterClosed().subscribe(
-      res => res ? this.enviarSerieActualizada(res) : false,
+      res => res ? this.enviarSerieActualizada(res): false,
       err => console.log(err)
     )
   }

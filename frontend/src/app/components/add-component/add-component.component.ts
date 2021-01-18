@@ -15,13 +15,25 @@ export class AddComponentComponent implements OnInit {
       nombre: '',
       temporadas: '',
       urlImg: '',
-      valoracion: 0,
+      valoracion: '0',
+      float: false,
       urlSerie: ''
     };
 
 
+    get valoracionSerie() {
+      return this.serie.valoracion;
+    }
+  
+    set valoracionSerie(numero: string){
+      console.log(numero)
+      this.serie.float = Boolean(Number(numero) % 1)
+      this.serie.valoracion = numero
+    }
+
   // en este caso no se injecta data al dialog, ya es crear uno nuevo
   constructor( public dialogRef: MatDialogRef<AddComponentComponent>) { }
+
 
   ngOnInit(): void {
   }

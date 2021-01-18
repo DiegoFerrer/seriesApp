@@ -1,0 +1,30 @@
+<mat-card class="card-container serie-body" *ngIf="serie">
+  <div class="img-container" *ngIf="serie">
+    <img mat-card-image [src]="serie.urlImg" class="img-serie" />
+    <img
+      *ngIf="!serie.urlImg"
+      mat-card-image
+      src="../../../assets/default.jpg"
+      class="img-serie"
+    />
+  </div>
+  <mat-card-content class="serie-body" >
+    <h1 class="serie-title">{{ serie.nombre }}</h1>
+    <section class="valoracion ml-1">
+      <mat-icon
+        class="star-icon"
+        *ngFor="let serie of getArregloValoracion(serie.valoracion)"
+        >star</mat-icon
+      >
+      <mat-icon class="star-icon" *ngIf="serie.float">star_half</mat-icon>
+      <span *ngIf="serie.valoracion" class="serie-puntuacion">({{ serie.valoracion }})</span>
+    </section>
+    <h3 class="temporadas ml-1">
+      Temporadas: <span class="temporadas-numero">{{ serie.temporadas }}</span>
+    </h3>
+  </mat-card-content>
+</mat-card>
+<section class="img-container-usuario" *ngIf="usuario">
+  <img mat-card-image [src]="usuario.fotourl" class="img-serie" />
+  <img *ngIf="!usuario || usuario.fotourl == ''" mat-card-image src="../../../assets/default.jpg" class="img-serie"/>
+</section>

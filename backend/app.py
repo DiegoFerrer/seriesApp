@@ -26,11 +26,82 @@ app.secret_key = 'mysecretkey' # para que vaya protegida la sesion
 
 '''----------------------------------------- R U T A S --------------------------------'''
 
-#! Obtener todos los datos de la columna series
-@app.route('/', methods=['GET'])
-def getData():
+#! Registro
+@app.route('/registro', methods=['POST'])
+def registro():
+    if request.method == 'POST':
+        usuario = request.json['usuario']
+        contrasena = request.json['contrasena']
+        urlfoto = ''
+
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM series') 
+    cur.execute('INSERT INTO usuarios (usuario,contrasena,fotoperfil) VALUES(%s, %s, %s)',(usuario,contrasena,urlfoto))
+    mysql.connection.commit() # ejecutar la consulta
+    status_code = 201
+    
+    return jsonify({"message": "usuario creado","status-code": status_code}),status_code
+
+#! Login
+@app.route('/login/<nameUsuario>',methods=['POST'])
+def login(nameUsuario):
+    cur = mysql.connection.cursor()
+    cur.execute("""SELECT * FROM USUARIOS WHERE USUARIO = %s""", (nameUsuario,))
+    data = cur.fetchall() # ejecuta la consulta y obtiene todos los datos
+    if data:
+        if data[0][2] == request.json['contrasena']:
+            status_code = 202
+            usuario = {
+                "id": data[0][0],
+                "usuario": data[0][1],
+                "fotourl": data[0][3]
+            }
+            return jsonify(usuario),status_code
+        else:
+            status_code = 401
+            respuesta = {
+                "contrasena": False,
+                "mensaje": 'contrasena incorrecta'
+            }
+            return jsonify(respuesta),status_code
+    else:
+        status_code = 404
+        respuesta = {
+            "usuario": False,
+            "mensaje": 'Usuario incorrecto'
+        }
+        return jsonify(respuesta),status_code
+
+#! Actualizar usuario
+@app.route('/updateUser/<id>', methods=['PUT'])
+def update_user(id):
+    cur = mysql.connection.cursor()
+    if request.method == 'PUT':
+        print(request.json)
+        fotourl = request.json['fotourl']
+        contrasena = request.json['contrasena'] 
+        if(contrasena != '' and fotourl != ''):
+            cur.execute("""UPDATE usuarios SET contrasena = %s, fotoperfil = %s WHERE id = %s""",(contrasena,fotourl,id))
+        elif (contrasena != '' ):
+            cur.execute("""UPDATE usuarios SET contrasena = %s WHERE id = %s""",(contrasena,id))
+        elif (fotourl != '' ):
+            cur.execute("""UPDATE usuarios SET fotoperfil = %s WHERE id = %s""",(fotourl,id))
+           
+        cur = mysql.connection.cursor()
+        mysql.connection.commit() # ejecutar la consulta
+
+        status_code = 200
+        return jsonify({"message":"usuario actualizado","status-code": status_code}),status_code
+
+
+   
+
+#-------------------------------------------------------------------------------------------------------
+
+#! Obtener series del usuario
+@app.route('/<id>', methods=['GET'])
+def getSerieUsuario(id):
+    cur = mysql.connection.cursor()
+    cur.execute(f'SELECT * FROM series WHERE idUsuario = {id}')
     status_code = 200
     data = cur.fetchall() # ejecuta la consulta y obtiene todos los datos
     dataSeries = []
@@ -41,7 +112,8 @@ def getData():
             "valoracion": serie[2],
             "temporadas": serie[3],
             "urlImg": serie[4],
-            "urlSerie": serie[5]
+            "urlSerie": serie[5],
+            "idUsuario": serie[6]
         }
         dataSeries.append(Objetoserie)
     
@@ -51,6 +123,7 @@ def getData():
 @app.route('/agregarSerie', methods=['POST'])
 def agregarSerie():
     if request.method == 'POST':
+        idUsuario = request.json['id']
         nombre = request.json['nombre']
         valoracion = request.json['valoracion']
         temporadas = request.json['temporadas']
@@ -58,11 +131,11 @@ def agregarSerie():
         urlSerie = request.json['urlSerie']
     
         cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO series (nombre,valoracion,temporadas,urlImg,urlSerie) VALUES(%s, %s, %s,%s,%s)', (nombre,valoracion,temporadas,urlImg,urlSerie))
+        cur.execute('INSERT INTO series (nombre,valoracion,temporadas,urlImg,urlSerie,idUsuario) VALUES(%s, %s, %s,%s,%s,%s)', (nombre,valoracion,temporadas,urlImg,urlSerie,idUsuario))
         mysql.connection.commit() # ejecutar la consulta
         status_code = 201
         
-        return jsonify({"message": "producto agregado","status-code": status_code}),status_code
+        return jsonify({"message": "Serie Agregada","status-code": status_code}),status_code
 
 #! Actualizar serie
 @app.route('/update/<id>', methods=['PUT'])

@@ -1,0 +1,33 @@
+<section class="edit-container">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nueva Contraseña</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'"  [(ngModel)]="usuario.contrasena"
+        [ngModelOptions]="{ standalone: true }" placeholder="Contraseña">
+        <button mat-icon-button matSuffix (click)="inputPassword()" >
+        <mat-icon class="icon-password">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+  
+      <mat-form-field class="example-full-width">
+        <mat-label>Imagen de perfil</mat-label>
+        <input
+          matInput
+          [(ngModel)]="usuario.fotourl"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </mat-form-field>
+  
+      <div class="example-button-row actions-buttons">
+        <button mat-raised-button color="primary" (click)="update()">
+          Guardar
+        </button>
+        <button mat-raised-button color="warn" (click)="cancel()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  
+    <app-preview [usuario]="usuario" class="card-container serie-body"></app-preview>
+  </section>
+  

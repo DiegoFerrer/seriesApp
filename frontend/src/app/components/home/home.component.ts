@@ -3,8 +3,10 @@ import { SeriesService } from 'src/app/services/series.service';
 import { Serie } from 'src/app/models/serie';
 import { MatDialog } from '@angular/material/dialog';
 import { AddComponentComponent } from '../add-component/add-component.component';
-import { SerieModificada } from 'src/app/models/serie-modificada';
-import { type } from 'os';
+import { Router } from '@angular/router';
+import { EditarPerfilComponent } from '../editar-perfil/editar-perfil.component';
+import { Usuario } from 'src/app/models/usuario';
+import { SesionService } from 'src/app/services/sesion.service';
 
 @Component({
   selector: 'app-home',
@@ -29,14 +31,26 @@ export class HomeComponent implements OnInit {
   seriesFiltradas: Serie[];
   series: Serie[];
   activado = 0;
+  id:number = Number(localStorage.getItem('id'))
+  usuario:string = localStorage.getItem('usuario')
+  fotoUrl = localStorage.getItem('fotourl')
 
   constructor(
     private seriesService: SeriesService,
-    private dialog: MatDialog
-  ) {}
+    private sesionService:SesionService,
+    private dialog: MatDialog,
+    private route: Router
+  ) {
+    if(!this.id) this.route.navigate(['/login'])
+  }
 
   ngOnInit(): void {
     this.obtenerSeries();
+  }
+
+  logout(){
+    localStorage.clear()
+    this.route.navigate(['/login'])
   }
 
   //* Filtrar series
@@ -48,20 +62,14 @@ export class HomeComponent implements OnInit {
 
   //* Obtener Series
   obtenerSeries() {
-    this.seriesService.getSeries().subscribe(
+    this.seriesService.getSeries(this.id).subscribe(
       (res) => {
-        // let variable = 8.5
-        // console.log(Math.trunc(variable))
-        // console.log(8.5 % 1)
         res.map((serie) => {
-          let serieArray = [];
-          serie.valoracion = Number(serie.valoracion);
-          serie.float = Boolean(serie.valoracion % 1)
-          for (let i = 1; i < (Math.trunc(serie.valoracion) + 1); i++) {
-            serieArray.push(i)
-          }
-          serie.valoracionModificada = serieArray
+          serie.float = Boolean(Number(serie.valoracion) % 1);
         });
+        // ordenar numericamente
+        res.sort((a,b) => Number(b.valoracion) - Number(a.valoracion))
+
 
         this.series = res;
         this.seriesFiltradas = res;
@@ -75,6 +83,7 @@ export class HomeComponent implements OnInit {
 
   //* Agregar Serie
   agregarSerie(serie: Serie) {
+    serie.id = this.id
     this.seriesService.createSerie(serie).subscribe(
       (res) => this.obtenerSeries(),
       (err) => console.log(err)
@@ -97,17 +106,46 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  //* Editar Usuario
+
+  editarUsuario(usuario:Usuario){
+    this.sesionService.updateUser(usuario).subscribe(
+      res => {
+        localStorage.setItem('fotourl', usuario.fotourl)
+        this.fotoUrl = usuario.fotourl
+      },
+      err => console.log(err)
+    )
+  }
+
   //!----------------------------------------------------------------------------
   //?---------------------- Dialog Agregar Serie --------------------------------
 
   openDialogAdd() {
     const dialogRef = this.dialog.open(AddComponentComponent, {
-      width: '600px',
-      // data: curso
+      width: '800px'
     });
     dialogRef.afterClosed().subscribe(
-      (res) => (res ? this.agregarSerie(res) : false),
-      (err) => console.log(err)
+      res => (res ? this.agregarSerie(res) : false),
+      err => console.log(err)
     );
+  }
+
+  //? ------------------- Dialog Editar Perfil ----------------------------------
+  openDialogEdit(){
+    let usuario:Usuario = {
+      id: this.id,
+      fotourl: this.fotoUrl,
+      usuario: this.usuario,
+      contrasena: ''
+    };
+    const dialogRef = this.dialog.open(EditarPerfilComponent,{
+      width:'800px',
+      data: usuario
+    })
+    dialogRef.afterClosed().subscribe(
+      res => (res ? this.editarUsuario(res) : false),
+      err => console.log(err)
+    )
   }
 }

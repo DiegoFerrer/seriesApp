@@ -11,12 +11,41 @@ import { Serie } from 'src/app/models/serie';
 })
 export class EditSeriesComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<EditSeriesComponent>,@Inject(MAT_DIALOG_DATA) public serie:Serie) { }
+  public serieMod:Serie = {
+    id: 0,
+    nombre: '',
+    temporadas: '',
+    urlImg: '',
+    valoracion: '',
+    float: false,
+    urlSerie: ''
+  };
 
-  ngOnInit(): void {}
+  get numeroValoracion(){
+    return this.serieMod.valoracion;
+  }
+
+  set numeroValoracion(numero: string) {
+    this.serieMod.float = Boolean(Number(numero) % 1)
+    this.serieMod.valoracion = numero
+  }
+
+  constructor(public dialogRef: MatDialogRef<EditSeriesComponent>,@Inject(MAT_DIALOG_DATA) private serie:Serie) {
+    this.serieMod.id = this.serie.id
+    this.serieMod.nombre = this.serie.nombre
+    this.serieMod.temporadas = this.serie.temporadas
+    this.serieMod.urlImg = this.serie.urlImg
+    this.serieMod.urlSerie = this.serie.urlSerie
+    this.serieMod.float = this.serie.float
+    this.serieMod.valoracion = this.serie.valoracion 
+  }
+
+  ngOnInit(): void {
+
+  }
 
   update(){
-    this.dialogRef.close(this.serie)
+    this.dialogRef.close(this.serieMod)
   }
   cancel(){
     this.dialogRef.close(false)

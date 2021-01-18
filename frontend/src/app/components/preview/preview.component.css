@@ -1,0 +1,99 @@
+/* estilos de carta previsualizacion */
+.card-container {
+    padding: 0;
+    padding-bottom: 1em;
+    box-sizing: border-box;
+}
+  
+  .img-container{
+    width: 100%;
+    display: block;
+    height: 170px;
+    position: relative;
+  }
+
+  .img-container-usuario{
+    background-color: #fff;
+    width: 80%;
+    display: block;
+    height: 100%;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+
+
+  .img-serie {
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+    object-fit: cover;
+  }
+
+  .actions{
+    display: flex;
+    justify-content: center;
+  }
+
+  .actions-icon{
+    margin: 0 0.5em;
+  }
+
+  .mat-card-header-container {
+    width: 100%;
+  }
+  ::ng-deep .mat-card-header-text {
+    /* CSS styles go here */
+    margin: 0px;
+    display: none;
+  }
+
+  .serie-title {
+    text-align: center;
+    margin: 0;
+    margin-top: 0.5em !important;
+  }
+
+  .ml-1 {
+    margin-left: 1em;
+  }
+
+  .star-icon {
+    color:#FFCC33;
+  }
+
+  .valoracion {
+    display: flex;
+    align-items: center;
+  }
+
+  .serie-puntuacion {
+    margin-left:.5em;
+    margin-top: .2em;
+    font-weight: 500;
+  }
+
+  .temporadas{
+    font-weight: 500;
+    color: #2196f3 ;
+    margin-top: 1em;
+  }
+
+.temporadas-numero{
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 14px;
+  width: 40px;
+  background-color: #DFDFDF;
+  text-align: center;
+  font-weight: 500;
+  color: #000;
+}
+
+.serie-body {
+  background-color: #F4F4F4;
+}
+
+    

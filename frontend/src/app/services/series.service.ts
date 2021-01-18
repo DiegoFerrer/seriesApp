@@ -14,8 +14,9 @@ export class SeriesService {
    }
 
   // ? metodos
-  getSeries(){
-    return this.http.get<Serie[]>(`${this.URI}`)
+
+  getSeries(id:number){
+    return this.http.get<Serie[]>(`${this.URI}/${id}`)
   }
 
   createSerie(serie:Serie){

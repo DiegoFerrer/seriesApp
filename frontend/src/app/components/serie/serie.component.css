@@ -19,6 +19,10 @@
     transform: scale(1);
   }
 
+  .editar {
+    background-color: #4bdf88;
+  }
+
   .editar, .borrar {
     transition: transform .1s ease;
   }
@@ -56,6 +60,7 @@
 }
 
   .img-serie {
+    min-height: 100%;
     max-height: 100%;
     max-width: 100%;
     margin: 0;
@@ -83,9 +88,11 @@
   }
 
   .serie-title {
+    background-color: rgba(134, 129, 129, 0.8);
     text-align: center;
     margin: 0;
-    margin-top: 0.5em !important;
+    /* margin-top: 0.5em !important; */
+    color: #fff;
   }
 
   .ml-1 {
@@ -97,20 +104,17 @@
   }
 
   .valoracion {
+    margin-top: 0.7em;
     display: flex;
     align-items: center;
   }
 
   .serie-puntuacion {
+    color: #fff;
     margin-left:.5em;
     margin-top: .2em;
     font-weight: 500;
-    /* -- */
-    /* display: inline-block;
-    text-align: center;
-    border-radius: 10px;
-    width: 50px;
-    background-color: #DFDFDF; */
+
   }
 
   .play {
@@ -141,14 +145,15 @@
   .temporadas{
     font-weight: 500;
     color: #2196f3 ;
-    margin-top: 1em;
+    margin-top: .5em;
+    font-size: 17px;
   }
 
 .temporadas-numero{
   display: inline-block;
   border-radius: 10px;
-  font-size: 14px;
-  width: 40px;
+  font-size: 15px;
+  width: 35px;
   background-color: #DFDFDF;
   text-align: center;
   font-weight: 500;
@@ -156,7 +161,7 @@
 }
 
 .serie-body {
-  background-color: #F4F4F4;
+  background-color: rgba(24, 24, 24, 0.774);
 }
 
     

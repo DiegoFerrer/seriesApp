@@ -1,7 +1,7 @@
 .example-form {
     min-width: 150px;
     max-width: 500px;
-    width: 100%;
+    width: 48%;
   }
   
   .example-full-width {
@@ -14,3 +14,95 @@
       justify-content: space-between;
       display: flex;
   }
+
+  .add-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* estilos de carta previsualizacion */
+  .card-container {
+    width: 40%;
+    padding: 0;
+}
+  
+  .img-container{
+    width: 100%;
+    display: block;
+    height: 170px;
+    position: relative;
+  }
+
+
+  .img-serie {
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+    object-fit: cover;
+  }
+
+  .actions{
+    display: flex;
+    justify-content: center;
+  }
+
+  .actions-icon{
+    margin: 0 0.5em;
+  }
+
+  .mat-card-header-container {
+    width: 100%;
+  }
+  ::ng-deep .mat-card-header-text {
+    /* CSS styles go here */
+    margin: 0px;
+    display: none;
+  }
+
+  .serie-title {
+    text-align: center;
+    margin: 0;
+    margin-top: 0.5em !important;
+  }
+
+  .ml-1 {
+    margin-left: 1em;
+  }
+
+  .star-icon {
+    color:#FFCC33;
+  }
+
+  .valoracion {
+    display: flex;
+    align-items: center;
+  }
+
+  .serie-puntuacion {
+    margin-left:.5em;
+    margin-top: .2em;
+    font-weight: 500;
+  }
+
+  .temporadas{
+    font-weight: 500;
+    color: #2196f3 ;
+    margin-top: 1em;
+  }
+
+.temporadas-numero{
+  display: inline-block;
+  border-radius: 10px;
+  font-size: 14px;
+  width: 40px;
+  background-color: #DFDFDF;
+  text-align: center;
+  font-weight: 500;
+  color: #000;
+}
+
+.serie-body {
+  background-color: #F4F4F4;
+}
