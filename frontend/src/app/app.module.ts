@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -11,14 +11,21 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SerieComponent } from './components/serie/serie.component';
-import { SeriesService } from './services/series.service';
 import { AddComponentComponent } from './components/add-component/add-component.component';
 import { EditSeriesComponent } from './components/edit-series/edit-series.component';
 import { PreviewComponent } from './components/preview/preview.component';
-import { LoginComponent } from './components/login/login.component';
-import { SesionService } from './services/sesion.service';
-import { RegistroComponent } from './components/registro/registro.component';
 import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SesionComponent } from './components/sesion/sesion.component';
+
+//? Servicios
+import { SeriesService } from './services/series.service';
+import { SesionService } from './services/sesion.service';
+
+//? Interceptors
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,9 +34,9 @@ import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.
     AddComponentComponent,
     EditSeriesComponent,
     PreviewComponent,
-    LoginComponent,
-    RegistroComponent,
     EditarPerfilComponent,
+    SpinnerComponent,
+    SesionComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,20 @@ import { EditarPerfilComponent } from './components/editar-perfil/editar-perfil.
     FormsModule,
   ],
   entryComponents: [AddComponentComponent, EditSeriesComponent],
-  providers: [SeriesService,SesionService],
+  providers: [
+    SeriesService,
+    SesionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    },
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="toolbar">
+<mat-toolbar  color="primary" class="toolbar">
   <mat-form-field
     appearance="standard"
     class="buscador-container">
@@ -39,7 +39,7 @@
   </section>
 </mat-toolbar>
 
-<section class="container-series" #cardSerieContainer>
+<section   class="container-series" #cardSerieContainer>
   <app-serie
     [ngClass]="{ 'card-serie-full': activado == 1 }"
     *ngFor="let serie of seriesFiltradas"
@@ -50,7 +50,7 @@
   ></app-serie>
 </section>
 
-<div class="example-button-container" class="button-add-container">
+<div  class="example-button-container" class="button-add-container">
   <button mat-fab color="primary" class="button-add">
     <mat-icon class="button-add-icon" (click)="openDialogAdd()">add</mat-icon>
   </button>

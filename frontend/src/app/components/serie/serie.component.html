@@ -1,6 +1,6 @@
 <mat-card class="card-container serie-body">
   <div class="img-container">
-    <img mat-card-image [src]="serie.urlImg" class="img-serie" />
+    <img *ngIf="serie.urlImg" mat-card-image [src]="serie.urlImg" class="img-serie" />
     <img *ngIf="!serie.urlImg" mat-card-image src="../../../assets/default.jpg" class="img-serie" />
     <section class="buttons-hide-section">
       <button mat-fab class="buttons-hide-container editar">

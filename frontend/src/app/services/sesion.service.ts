@@ -20,14 +20,21 @@ export class SesionService {
     let userName = usuario.usuario;
     return this.http.post<Usuario>(`${this.URI}login/${userName}`, usuario);
   }
-  //* LOGIN
+  //* Registro
   registro(usuario: Usuario) {
     let userName = usuario.usuario;
     return this.http.post<Usuario>(`${this.URI}registro`, usuario);
   }
 
+  //! Esta logeado?
+  logeado(){
+    return !!localStorage.getItem('id')
+  }
+
+  //* Editar usuario
   updateUser(usuario:Usuario){
     let id = usuario.id
+    usuario.id = 0
     return this.http.put<Usuario>(`${this.URI}updateUser/${id}`, usuario);
   }
 }

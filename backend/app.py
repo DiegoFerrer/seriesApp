@@ -1,15 +1,21 @@
 
 #? ------------------------------ I N S T A L A C I O N E S ---------------------------
-    # pip install flask  
-    # pip install flask-mysqldb 
+    # pip install flask
+    # pip install flask-mysqldb
     # pip install -U flask-cors
+    # pip install bcrypt
+    # pip install Flask-JWT | https://pythonhosted.org/Flask-JWT/
 
 '''------------------------------------ I M P O R T S --------------------------------'''
-from flask import Flask 
+from flask import Flask
 from flask import jsonify           # Objeto Json
 from flask import request           # manejar los request
 from flask_cors import CORS         # Importando CORS para python
-from flask_mysqldb import MySQL
+from flask_mysqldb import MySQL     # mysql y flask
+import bcrypt                       # hash a password
+# from flask_jwt import JWT, jwt_required, current_identity
+# from werkzeug.security import safe_str_cmp
+
 
 app = Flask(__name__)
 CORS(app)
@@ -31,61 +37,71 @@ app.secret_key = 'mysecretkey' # para que vaya protegida la sesion
 def registro():
     if request.method == 'POST':
         usuario = request.json['usuario']
-        contrasena = request.json['contrasena']
+        contraseña = request.json['contrasena']
+        contraseña_cifrada = bcrypt.hashpw(contraseña.encode('utf-8'), bcrypt.gensalt())
         urlfoto = ''
 
     cur = mysql.connection.cursor()
-    cur.execute('INSERT INTO usuarios (usuario,contrasena,fotoperfil) VALUES(%s, %s, %s)',(usuario,contrasena,urlfoto))
+    cur.execute('INSERT INTO usuarios (usuario,contrasena,fotoperfil) VALUES(%s, %s, %s)',(usuario,contraseña_cifrada,urlfoto))
     mysql.connection.commit() # ejecutar la consulta
     status_code = 201
-    
+
     return jsonify({"message": "usuario creado","status-code": status_code}),status_code
 
 #! Login
 @app.route('/login/<nameUsuario>',methods=['POST'])
 def login(nameUsuario):
-    cur = mysql.connection.cursor()
-    cur.execute("""SELECT * FROM USUARIOS WHERE USUARIO = %s""", (nameUsuario,))
-    data = cur.fetchall() # ejecuta la consulta y obtiene todos los datos
-    if data:
-        if data[0][2] == request.json['contrasena']:
-            status_code = 202
-            usuario = {
-                "id": data[0][0],
-                "usuario": data[0][1],
-                "fotourl": data[0][3]
-            }
-            return jsonify(usuario),status_code
+    if request.method == 'POST':
+        contraseñaRequest = request.json['contrasena'].encode('utf-8')
+
+        cur = mysql.connection.cursor()
+        cur.execute("""SELECT * FROM USUARIOS WHERE USUARIO = %s""", (nameUsuario,))
+        user = cur.fetchone()
+        cur.close()
+        contraseñaUser = user[2].encode('utf-8')
+        if (user != None):
+            if (bcrypt.checkpw(contraseñaRequest,contraseñaUser)):
+                status_code = 202
+                usuario = {
+                    "id": user[0],
+                    "usuario": user[1],
+                    "fotourl": user[3],
+                }
+                return jsonify(usuario),status_code
+            else:
+                status_code = 401
+                respuesta = {
+                    "contraseña": False,
+                    "mensaje": 'contraseña incorrecta'
+                }
+                return jsonify(respuesta),status_code
         else:
-            status_code = 401
+            status_code = 404
             respuesta = {
-                "contrasena": False,
-                "mensaje": 'contrasena incorrecta'
+                "usuario": False,
+                "mensaje": 'Usuario incorrecto'
             }
             return jsonify(respuesta),status_code
-    else:
-        status_code = 404
-        respuesta = {
-            "usuario": False,
-            "mensaje": 'Usuario incorrecto'
-        }
-        return jsonify(respuesta),status_code
 
 #! Actualizar usuario
 @app.route('/updateUser/<id>', methods=['PUT'])
 def update_user(id):
     cur = mysql.connection.cursor()
+    # print(request.headers['token'])
     if request.method == 'PUT':
         print(request.json)
         fotourl = request.json['fotourl']
-        contrasena = request.json['contrasena'] 
-        if(contrasena != '' and fotourl != ''):
-            cur.execute("""UPDATE usuarios SET contrasena = %s, fotoperfil = %s WHERE id = %s""",(contrasena,fotourl,id))
-        elif (contrasena != '' ):
-            cur.execute("""UPDATE usuarios SET contrasena = %s WHERE id = %s""",(contrasena,id))
+        contraseña = request.json['contrasena']
+        if(contraseña):
+            contraseña_cifrada = bcrypt.hashpw(contraseña.encode('utf-8'), bcrypt.gensalt())
+
+        if(contraseña != '' and fotourl != ''):
+            cur.execute("""UPDATE usuarios SET contrasena = %s, fotoperfil = %s WHERE id = %s""",(contraseña_cifrada,fotourl,id))
+        elif (contraseña != '' ):
+            cur.execute("""UPDATE usuarios SET contrasena = %s WHERE id = %s""",(contraseña_cifrada,id))
         elif (fotourl != '' ):
             cur.execute("""UPDATE usuarios SET fotoperfil = %s WHERE id = %s""",(fotourl,id))
-           
+
         cur = mysql.connection.cursor()
         mysql.connection.commit() # ejecutar la consulta
 
@@ -93,7 +109,7 @@ def update_user(id):
         return jsonify({"message":"usuario actualizado","status-code": status_code}),status_code
 
 
-   
+
 
 #-------------------------------------------------------------------------------------------------------
 
@@ -116,7 +132,7 @@ def getSerieUsuario(id):
             "idUsuario": serie[6]
         }
         dataSeries.append(Objetoserie)
-    
+
     return jsonify(dataSeries),status_code
 
 #! Agregar serie
@@ -129,12 +145,12 @@ def agregarSerie():
         temporadas = request.json['temporadas']
         urlImg = request.json['urlImg']
         urlSerie = request.json['urlSerie']
-    
+
         cur = mysql.connection.cursor()
         cur.execute('INSERT INTO series (nombre,valoracion,temporadas,urlImg,urlSerie,idUsuario) VALUES(%s, %s, %s,%s,%s,%s)', (nombre,valoracion,temporadas,urlImg,urlSerie,idUsuario))
         mysql.connection.commit() # ejecutar la consulta
         status_code = 201
-        
+
         return jsonify({"message": "Serie Agregada","status-code": status_code}),status_code
 
 #! Actualizar serie

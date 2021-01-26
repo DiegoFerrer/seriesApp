@@ -10,6 +10,7 @@ import { Usuario } from 'src/app/models/usuario';
 export class EditarPerfilComponent implements OnInit {
 
   hide:Boolean = true
+  
 
   constructor(public dialogRef: MatDialogRef<EditarPerfilComponent>,@Inject(MAT_DIALOG_DATA) public usuario) { }
 

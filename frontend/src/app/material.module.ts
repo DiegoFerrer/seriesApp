@@ -7,6 +7,8 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { MatInputModule} from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 @NgModule({
     imports: [
@@ -17,7 +19,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatDialogModule,
         MatInputModule,
         MatMenuModule,      
-        MatFormFieldModule  
+        MatFormFieldModule,
+        MatProgressSpinnerModule  
     ],
     exports: [
         MatCardModule,
@@ -27,7 +30,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         MatDialogModule,
         MatInputModule,
         MatMenuModule,
-        MatFormFieldModule   
+        MatFormFieldModule,
+        MatProgressSpinnerModule
     ]
 })
 export class MaterialModule {}

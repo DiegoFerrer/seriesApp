@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { EditarPerfilComponent } from '../editar-perfil/editar-perfil.component';
 import { Usuario } from 'src/app/models/usuario';
 import { SesionService } from 'src/app/services/sesion.service';
+import { Subject } from 'rxjs';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +20,8 @@ export class HomeComponent implements OnInit {
   filtro: ElementRef;
   private _textoFiltro: string = '';
 
+
+  //* --------------------------- FILTRO SERIES ---------------------------------------
   get textoFiltro() {
     return this._textoFiltro;
   }
@@ -30,28 +34,31 @@ export class HomeComponent implements OnInit {
 
   seriesFiltradas: Serie[];
   series: Serie[];
-  activado = 0;
-  id:number = Number(localStorage.getItem('id'))
-  usuario:string = localStorage.getItem('usuario')
-  fotoUrl = localStorage.getItem('fotourl')
 
+  //* --------------------------- FILTRO SERIES END ---------------------------------------
+
+  // animacion principal de series
+  activado = 0;
+
+  //? Elementos storage
+  id: number = Number(localStorage.getItem('id'));
+  usuario: string = localStorage.getItem('usuario');
+  fotoUrl = localStorage.getItem('fotourl');
+
+  
   constructor(
     private seriesService: SeriesService,
-    private sesionService:SesionService,
+    private sesionService: SesionService,
     private dialog: MatDialog,
-    private route: Router
-  ) {
-    if(!this.id) this.route.navigate(['/login'])
+    private route: Router,
+  ) {    
   }
 
   ngOnInit(): void {
-    this.obtenerSeries();
+    this.obtenerSeries()
   }
 
-  logout(){
-    localStorage.clear()
-    this.route.navigate(['/login'])
-  }
+  /* ######################################################################################### */
 
   //* Filtrar series
   filtrar(texto: string) {
@@ -68,8 +75,7 @@ export class HomeComponent implements OnInit {
           serie.float = Boolean(Number(serie.valoracion) % 1);
         });
         // ordenar numericamente
-        res.sort((a,b) => Number(b.valoracion) - Number(a.valoracion))
-
+        res.sort((a, b) => Number(b.valoracion) - Number(a.valoracion));
 
         this.series = res;
         this.seriesFiltradas = res;
@@ -83,7 +89,7 @@ export class HomeComponent implements OnInit {
 
   //* Agregar Serie
   agregarSerie(serie: Serie) {
-    serie.id = this.id
+    serie.id = this.id;
     this.seriesService.createSerie(serie).subscribe(
       (res) => this.obtenerSeries(),
       (err) => console.log(err)
@@ -105,47 +111,52 @@ export class HomeComponent implements OnInit {
       (err) => console.log(err)
     );
   }
-
+  /* ######################################################################################### */
+  /* ######################################################################################### */
   //* Editar Usuario
-
-  editarUsuario(usuario:Usuario){
+  editarUsuario(usuario: Usuario) {
     this.sesionService.updateUser(usuario).subscribe(
-      res => {
-        localStorage.setItem('fotourl', usuario.fotourl)
-        this.fotoUrl = usuario.fotourl
+      (res) => {
+        localStorage.setItem('fotourl', usuario.fotourl);
+        this.fotoUrl = usuario.fotourl;
       },
-      err => console.log(err)
-    )
+      (err) => console.log(err)
+    );
   }
 
+  logout() {
+    localStorage.clear();
+    this.route.navigate(['/login']);
+  }
+  /* ######################################################################################### */
   //!----------------------------------------------------------------------------
   //?---------------------- Dialog Agregar Serie --------------------------------
 
   openDialogAdd() {
     const dialogRef = this.dialog.open(AddComponentComponent, {
-      width: '800px'
+      width: '800px',
     });
     dialogRef.afterClosed().subscribe(
-      res => (res ? this.agregarSerie(res) : false),
-      err => console.log(err)
+      (res) => (res ? this.agregarSerie(res) : false),
+      (err) => console.log(err)
     );
   }
 
   //? ------------------- Dialog Editar Perfil ----------------------------------
-  openDialogEdit(){
-    let usuario:Usuario = {
+  openDialogEdit() {
+    let usuario: Usuario = {
       id: this.id,
       fotourl: this.fotoUrl,
       usuario: this.usuario,
-      contrasena: ''
+      contrasena: '',
     };
-    const dialogRef = this.dialog.open(EditarPerfilComponent,{
-      width:'800px',
-      data: usuario
-    })
+    const dialogRef = this.dialog.open(EditarPerfilComponent, {
+      width: '800px',
+      data: usuario,
+    });
     dialogRef.afterClosed().subscribe(
-      res => (res ? this.editarUsuario(res) : false),
-      err => console.log(err)
-    )
+      (res) => (res ? this.editarUsuario(res) : false),
+      (err) => console.log(err)
+    );
   }
 }
