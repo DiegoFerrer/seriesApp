@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.form-sesion{
+    width: 25%;
+    height: 23%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 30em;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.36);
+    padding: 2em;
+    box-sizing: border-box;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 2em;
+}
+
+
+.inputs-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.actions-buttons{
+    padding: 0.2em 0.4em;
+    width: 85%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon-usuario{
+    margin-right: 0.23em;
+}
+
+.content {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.video-container{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+}
+
+/* .video-container::after{
+    content:'';
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+} */
+
+.video{
+    min-height: 100%;
+    min-width: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.form-sesion {
+    z-index: 0;
+}
+
+.mat-focused {
+    border: none !important;
+}
+
+.buscador{
+    color: #fff;
+    font-weight: 400;
+}
+
+.buscador::placeholder {
+    color: #fff;
+}
+
+.buscador:focus {
+    border: none;
+}
+
+::ng-deep .mat-form-field-underline:focus {
+    display: none;
+}
+
+::ng-deep .mat-form-field-underline {
+    background-color: rgba(255, 255, 255, .3) !important;
+}
+
+.icon-input {
+    color: #fff;
+    font-weight: 400;
+}

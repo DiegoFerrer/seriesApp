@@ -1,0 +1,12 @@
+.container-spinner{
+    background-color: rgba(255, 255, 255, .3);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    left: 0;
+    top: 0;
+}
