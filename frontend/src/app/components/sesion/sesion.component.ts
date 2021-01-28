@@ -30,8 +30,10 @@ export class SesionComponent implements OnInit {
       secundario: 'Registrarse'
   }         
 
-    // spinner boolean
-    inProgress = new Subject<boolean>();
+  // spinner boolean
+  inProgress = new Subject<boolean>();
+
+
 
   constructor(private sesionService: SesionService, private route:Router, private spinnerService:SpinnerService) {}
 
@@ -41,8 +43,6 @@ export class SesionComponent implements OnInit {
     if (idUsuario) this.route.navigate(['/home'])
     
     this.video.nativeElement.muted = true 
-
-
 
   }
 
