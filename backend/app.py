@@ -108,9 +108,6 @@ def update_user(id):
         status_code = 200
         return jsonify({"message":"usuario actualizado","status-code": status_code}),status_code
 
-
-
-
 #-------------------------------------------------------------------------------------------------------
 
 #! Obtener series del usuario

@@ -20,6 +20,7 @@ export class SesionService {
     let userName = usuario.usuario;
     return this.http.post<Usuario>(`${this.URI}login/${userName}`, usuario);
   }
+  
   //* Registro
   registro(usuario: Usuario) {
     let userName = usuario.usuario;

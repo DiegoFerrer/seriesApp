@@ -20,8 +20,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatInputModule,
         MatMenuModule,      
         MatFormFieldModule,
-        MatProgressSpinnerModule  
-    ],
+        MatProgressSpinnerModule,
+
     exports: [
         MatCardModule,
         MatToolbarModule,
@@ -31,7 +31,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatInputModule,
         MatMenuModule,
         MatFormFieldModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+
     ]
 })
 export class MaterialModule {}

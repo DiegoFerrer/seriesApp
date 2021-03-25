@@ -24,6 +24,8 @@ const routes: Routes = [
   },
 ];
 
+lazy loading 
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
